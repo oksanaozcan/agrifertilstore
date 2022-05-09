@@ -37,7 +37,9 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('cultures')->group(function () {
-      Route::get('/', App\Http\Controllers\Admin\Culture\IndexController::class)->name('admin.cultures.index');
+      Route::get('/', App\Http\Controllers\Admin\Culture\IndexController::class)->name('admin.cultures.index');      
+      Route::post('file-import', App\Http\Controllers\Admin\Culture\ImportController::class)->name('admin.cultures.file-import');
+      Route::get('file-export', App\Http\Controllers\Admin\Culture\ExportController::class)->name('admin.cultures.file-export');
       Route::get('/filter', App\Http\Controllers\Admin\Culture\FilterController::class)->name('admin.cultures.filter');
       Route::get('/create', App\Http\Controllers\Admin\Culture\CreateController::class)->name('admin.cultures.create');
       Route::post('/', App\Http\Controllers\Admin\Culture\StoreController::class)->name('admin.cultures.store');
