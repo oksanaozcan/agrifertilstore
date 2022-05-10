@@ -3,27 +3,35 @@
 namespace App\Imports;
 
 use App\Models\Culture;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class CulturesImport implements ToModel
+class CulturesImport implements ToCollection, WithHeadingRow
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
+    * @param Collection $collection
     */
-    public function model(array $row)
+    public function collection(Collection $collection)
     {
-      return new Culture([
-        'name' => $row[0],
-        'nitrogen' => $row[1],
-        'phosphorus' => $row[2],
-        'potassium' => $row[3],
-        'fertilizer_id' => $row[4],           
-        'region' => $row[5],
-        'price' => $row[6],
-        'description' => $row[7],
-        'purpose' => $row[8]
-      ]);
+      foreach ($collection as $row) 
+      {
+        if ($row->filter()->isNotEmpty())
+        {
+          Culture::firstOrCreate([
+          'name' => $row['name']
+          ], [
+            'name' => $row['name'],
+            'nitrogen' => $row['nitrogen'],
+            'phosphorus' => $row['phosphorus'],
+            'potassium' => $row['potassium'],
+            'fertilizer_id' => $row['fertilizer_id'],           
+            'region' => $row['region'],
+            'price' => $row['price'],
+            'description' => $row['description'],
+            'purpose' => $row['purpose']
+          ]);
+        }
+      }
     }
 }
