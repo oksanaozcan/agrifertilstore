@@ -17,7 +17,12 @@ class ImportController extends Controller
      */
     public function __invoke(Request $request)
     {
-      Excel::import(new CulturesImport, $request->file('file')->store('temp'));
-      return back();
+      if ($request->hasFile('file')) {
+        Excel::import(new CulturesImport, $request->file('file')->store('temp'));
+        return back();   
+      } else {        
+        return back()->withErrors('Файл не найден');
+      }
+        
     }
 }
