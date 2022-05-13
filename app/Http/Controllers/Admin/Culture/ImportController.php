@@ -18,7 +18,7 @@ class ImportController extends Controller
     public function __invoke(Request $request)
     {
       if ($request->hasFile('file')) {
-        $file = $request->file('file')->store('import_culture');
+        $file = $request->file('file')->store('import');
         $import = new CulturesImport;
         $import->import($file);
         return back()->withStatus('Данные импортируются');        
