@@ -4,11 +4,15 @@ namespace App\Imports;
 
 use App\Models\Culture;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class CulturesImport implements ToCollection, WithHeadingRow
+class CulturesImport implements ToCollection, WithHeadingRow, WithChunkReading, ShouldQueue
 {
+  use Importable;
     /**
     * @param Collection $collection
     */
@@ -33,5 +37,10 @@ class CulturesImport implements ToCollection, WithHeadingRow
           ]);
         }
       }
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }
