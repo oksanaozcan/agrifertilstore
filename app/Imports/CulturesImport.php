@@ -21,7 +21,7 @@ class CulturesImport implements ToCollection, WithHeadingRow, WithChunkReading, 
       foreach ($collection as $row) 
       {
         if ($row->filter()->isNotEmpty())
-        {
+        {          
           Culture::firstOrCreate([
           'name' => $row['name']
           ], [
@@ -41,6 +41,6 @@ class CulturesImport implements ToCollection, WithHeadingRow, WithChunkReading, 
 
     public function chunkSize(): int
     {
-        return 1000;
+        return 5000;
     }
 }

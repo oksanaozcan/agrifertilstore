@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Imports\CulturesImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Throwable;
 
 class ImportController extends Controller
 {
@@ -17,13 +18,12 @@ class ImportController extends Controller
      */
     public function __invoke(Request $request)
     {
-      if ($request->hasFile('file')) {
-        $file = $request->file('file')->store('import');
-        $import = new CulturesImport;
-        $import->import($file);
-        return back()->withStatus('Данные импортируются');        
-      } else {        
-        return back()->withErrors('Файл не найден');
-      }        
+      $request->validate([
+        'file' => 'required',
+      ]);
+      $file = $request->file('file')->store('import');
+      $import = new CulturesImport;
+      $import->import($file);
+      return back()->withStatus('Import done!');         
     }
 }
