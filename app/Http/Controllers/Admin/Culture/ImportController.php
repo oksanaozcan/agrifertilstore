@@ -24,21 +24,17 @@ class ImportController extends Controller
       ]);     
 
       $file = $request->file('file')->store('import');   
-      
-      try {
-        Excel::import(new CulturesImport, request()->file('file'));
-        
-        //if success -> 
-        $importStatus = ImportStatus::create([
-          'path' => $file,
-          'importable' => 'App\Models\Culture',
-          'status' => 'success',
-          'user_id' => auth()->id()
-        ]);
-        
-        return back()->withStatus('Import done!');
-      } catch (Throwable $e) {
-        report($e);
-      }                
+     
+      Excel::import(new CulturesImport, request()->file('file'));        
+      return back()->withStatus('Import done!');
+     
     }
 }
+
+ //if success -> 
+        // $importStatus = ImportStatus::create([
+        //   'path' => $file,
+        //   'importable' => 'App\Models\Culture',
+        //   'status' => 'success',
+        //   'user_id' => auth()->id()
+        // ]);
