@@ -3,13 +3,18 @@
 namespace App\Imports;
 
 use App\Models\Culture;
+use App\Models\ImportStatus;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterImport;
+use Maatwebsite\Excel\Validators\Failure;
 
 class CulturesImport implements 
 ToModel, 
@@ -17,10 +22,11 @@ WithHeadingRow,
 WithBatchInserts,
 WithChunkReading,
 WithValidation,
+WithEvents,
 ShouldQueue
 
 {
-  use Importable;
+  use Importable, RegistersEventListeners;      
 
   public function rules(): array
   {
@@ -62,5 +68,15 @@ ShouldQueue
       return 1000;
   }
 
+  public static function afterImport(AfterImport $event)
+  {
     
+  }    
+
+  public function onFailure(Failure ...$failure)
+  {
+
+    dump($failure);
+
+  }
 }

@@ -23,18 +23,18 @@ class ImportController extends Controller
         'file' => 'required',
       ]);     
 
-      $file = $request->file('file')->store('import');   
+      $file = $request->file('file')->store('import');  
+
+      $importStatus = new ImportStatus();
+      $importStatus::create([
+        'path' => $file,
+        'importable' => 'App\Models\Culture',
+        'status' => 'processing',
+        'user_id' => auth()->user()->id
+      ]);
      
-      Excel::import(new CulturesImport, request()->file('file'));        
-      return back()->withStatus('Import done!');
+      Excel::import(new CulturesImport, $file);        
+      return back()->withStatus('File imported to storage! We will send you notify, when it will be imported into database');
      
     }
 }
-
- //if success -> 
-        // $importStatus = ImportStatus::create([
-        //   'path' => $file,
-        //   'importable' => 'App\Models\Culture',
-        //   'status' => 'success',
-        //   'user_id' => auth()->id()
-        // ]);

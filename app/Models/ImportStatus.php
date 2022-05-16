@@ -9,12 +9,7 @@ class ImportStatus extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-
-    public function culture()
-    {
-      return $this->belongsTo(Culture::class);
-    }
+    protected $guarded = [];    
 
 
 }
