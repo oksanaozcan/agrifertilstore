@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
-use App\Http\Filters\CultureFilter;
-use App\Http\Requests\Main\IndexRequest;
-use App\Models\Culture;
 use Illuminate\Http\Request;
 
 class FilterController extends Controller

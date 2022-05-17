@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Filters\CultureFilter;
 use App\Http\Requests\Main\IndexRequest;
 use App\Models\Culture;
-use App\Models\Fertilizer;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -20,8 +19,6 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-      $fertilizers = Fertilizer::all(['id', 'name']);
-
       $regions = Culture::all()->pluck('region')->toArray();
       $regions = array_unique($regions);
       
@@ -33,6 +30,8 @@ class IndexController extends Controller
 
       $cultures = Culture::filter($filter)->paginate(8);  
       
-      return view('main.index', compact('cultures', 'fertilizers', 'tags', 'regions'));
+      return view('main.index', compact('cultures',      
+      'tags', 
+      'regions'));
     }
 }

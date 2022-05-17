@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Culture;
 
 use App\Http\Controllers\Controller;
-use App\Models\Fertilizer;
 use App\Models\Tag;
+use App\Models\Fertilizer;
 use Illuminate\Http\Request;
 
 class CreateController extends Controller
@@ -16,9 +16,9 @@ class CreateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __invoke()
-    {
-      $fertilizers = Fertilizer::all();
+    {      
       $tags = Tag::all();
-      return view('admin.cultures.create', compact('fertilizers', 'tags'));
+      $fertilizers = Fertilizer::all(['id', 'name']);
+      return view('admin.cultures.create', compact('tags', 'fertilizers'));
     }
 }

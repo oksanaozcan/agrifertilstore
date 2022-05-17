@@ -19,9 +19,8 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-      $fertilizers = Fertilizer::all(['id', 'name']);
-
       $tags = Tag::all(['id', 'name']);
+      $fertilizers = Fertilizer::all(['id', 'name']);
 
       $regions = Culture::all()->pluck('region')->toArray();
       $regions = array_unique($regions);
