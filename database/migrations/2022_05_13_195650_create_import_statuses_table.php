@@ -16,10 +16,14 @@ return new class extends Migration
         Schema::create('import_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('path');
-            $table->string('importable');
+            $table->string('module');
             $table->enum('status', ['processing', 'success', 'failed']);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('attribute')->nullable();
+            $table->unsignedInteger('row')->nullable();
+            $table->json('values')->nullable();
+            $table->json('errors')->nullable();
             $table->timestamps();
         });
     }

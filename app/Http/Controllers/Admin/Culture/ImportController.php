@@ -28,12 +28,12 @@ class ImportController extends Controller
       $importStatus = new ImportStatus();
       $importStatus::create([
         'path' => $file,
-        'importable' => 'App\Models\Culture',
+        'module' => 'Culture',
         'status' => 'processing',
         'user_id' => auth()->user()->id
       ]);
      
-      Excel::import(new CulturesImport, $file);        
+      Excel::import(new CulturesImport, $file);            
       return back()->withStatus('File imported to storage! We will send you notify, when it will be imported into database');
      
     }

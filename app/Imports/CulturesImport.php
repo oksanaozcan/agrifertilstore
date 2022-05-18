@@ -15,6 +15,9 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterImport;
 use Maatwebsite\Excel\Validators\Failure;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 
 class CulturesImport implements 
 ToModel, 
@@ -23,10 +26,12 @@ WithBatchInserts,
 WithChunkReading,
 WithValidation,
 WithEvents,
-ShouldQueue
+ShouldQueue,
+SkipsEmptyRows,
+SkipsOnFailure
 
 {
-  use Importable, RegistersEventListeners;      
+  use Importable, RegistersEventListeners, SkipsFailures;      
 
   public function rules(): array
   {
@@ -58,6 +63,24 @@ ShouldQueue
     ]);        
   }
 
+  public function onFailure(Failure ...$failures)
+  {
+    $data = [];
+    foreach ($failures as $failure) {
+      $data[] = [
+        'path' => 'file path', /////
+        'module' => 'Culture', 
+        'status' => 'failed',
+        'user_id' => '1', ////
+        'attribute' => $failure->attribute(),
+        'row' => $failure->row(),           
+        'values' => json_encode($failure->values()),
+        'errors' => json_encode($failure->errors()),
+      ];
+    }
+    ImportStatus::insert($data);
+  }
+
   public function batchSize(): int
   {
       return 1000;
@@ -70,13 +93,6 @@ ShouldQueue
 
   public static function afterImport(AfterImport $event)
   {
-    
-  }    
-
-  public function onFailure(Failure ...$failure)
-  {
-
-    dump($failure);
-
+    dump('after import');
   }
 }
