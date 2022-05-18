@@ -16,8 +16,8 @@ class IndexTagController extends Controller
      */
     public function __invoke(Request $request)
     {
-      $tags = Tag::onlyTrashed()->get();
+      $trashedTags = Tag::onlyTrashed()->get();
 
-      return view('admin.deleted.tags.index', compact('tags'));
+      return view('admin.deleted.tags.index', compact('trashedTags'));
     }
 }

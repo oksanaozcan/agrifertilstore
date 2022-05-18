@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin\Culture;
 use App\Http\Controllers\Controller;
 use App\Http\Filters\CultureFilter;
 use App\Models\Culture;
-use App\Models\Fertilizer;
-use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -18,10 +16,7 @@ class IndexController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request)
-    {
-      $tags = Tag::all(['id', 'name']);
-      $fertilizers = Fertilizer::all(['id', 'name']);
-
+    {      
       $regions = Culture::all()->pluck('region')->toArray();
       $regions = array_unique($regions);
 
@@ -30,6 +25,6 @@ class IndexController extends Controller
 
       $cultures = Culture::filter($filter)->cursor();
          
-      return view('admin.cultures.index', compact('cultures', 'fertilizers', 'tags', 'regions'));
+      return view('admin.cultures.index', compact('cultures', 'regions'));
     }
 }

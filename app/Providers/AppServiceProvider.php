@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Fertilizer;
+use App\Models\Tag;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
@@ -29,13 +30,18 @@ class AppServiceProvider extends ServiceProvider
     {
       Paginator::defaultView('vendor.pagination.bootstrap-4');
 
-      View::composer('main.index', function ($view) {
+      View::composer(['main.index', 'admin.*'], function ($view) {
         $fertilizers = Cache::rememberForever('fertilizers', function () {
-          return Fertilizer::all();
-        });
+          return Fertilizer::withCount('cultures')->get();
+        });        
         $view->with('fertilizers', $fertilizers);
-      });
+      }); 
 
-      
+      View::composer(['main.index', 'admin.*'], function ($view) {
+        $tags = Cache::rememberForever('tags', function () {
+          return Tag::all();
+        });        
+        $view->with('tags', $tags);
+      });       
     }
 }

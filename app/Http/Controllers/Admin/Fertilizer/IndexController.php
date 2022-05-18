@@ -17,9 +17,7 @@ class IndexController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __invoke()
-    {
-      $fertilizers = Fertilizer::withCount('cultures')->get();
-         
-      return view('admin.fertilizers.index', compact('fertilizers'));
+    {    
+      return view('admin.fertilizers.index');
     }
 }

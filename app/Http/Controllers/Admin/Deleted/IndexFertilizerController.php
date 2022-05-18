@@ -16,8 +16,8 @@ class IndexFertilizerController extends Controller
      */
     public function __invoke()
     {
-      $fertilizers = Fertilizer::onlyTrashed()->get();
+      $trashedFertilizers = Fertilizer::onlyTrashed()->get();
          
-      return view('admin.deleted.fertilizers.index', compact('fertilizers'));
+      return view('admin.deleted.fertilizers.index', compact('trashedFertilizers'));
     }
 }

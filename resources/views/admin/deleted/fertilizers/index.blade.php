@@ -33,7 +33,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($fertilizers as $item)
+              @foreach ($trashedFertilizers as $item)
                 <tr>
                   <th>{{ $item->id }}</th>
                   <td>{{ $item->name }}</td>

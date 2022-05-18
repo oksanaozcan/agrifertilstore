@@ -20,9 +20,7 @@ class IndexController extends Controller
     public function __invoke(Request $request)
     {
       $regions = Culture::all()->pluck('region')->toArray();
-      $regions = array_unique($regions);
-      
-      $tags = Tag::all(['id', 'name']);
+      $regions = array_unique($regions);   
 
       $data = $request->input();           
 
@@ -30,8 +28,6 @@ class IndexController extends Controller
 
       $cultures = Culture::filter($filter)->paginate(8);  
       
-      return view('main.index', compact('cultures',      
-      'tags', 
-      'regions'));
+      return view('main.index', compact('cultures', 'regions'));
     }
 }

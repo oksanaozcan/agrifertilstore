@@ -33,7 +33,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($tags as $item)
+              @foreach ($trashedTags as $item)
                 <tr>
                   <th>{{ $item->id }}</th>
                   <td>{{ $item->name }}</td>
