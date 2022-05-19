@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ImportStatus extends Model
 {
-    use HasFactory;
+    use HasFactory;   
 
     protected $guarded = [];    
 

@@ -33,6 +33,15 @@ SkipsOnFailure
 {
   use Importable, RegistersEventListeners, SkipsFailures;      
 
+  public $file;
+  public $userId;
+
+  public function __construct($file, $userId)
+  {
+    $this->file = $file;
+    $this->userId = $userId;
+  }
+
   public function rules(): array
   {
     return [
@@ -68,10 +77,10 @@ SkipsOnFailure
     $data = [];
     foreach ($failures as $failure) {
       $data[] = [
-        'path' => 'file path', /////
+        'path' => $this->file, /////
         'module' => 'Culture', 
         'status' => 'failed',
-        'user_id' => '1', ////
+        'user_id' => $this->userId, ////
         'attribute' => $failure->attribute(),
         'row' => $failure->row(),           
         'values' => json_encode($failure->values()),
