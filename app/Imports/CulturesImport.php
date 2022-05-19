@@ -18,6 +18,7 @@ use Maatwebsite\Excel\Validators\Failure;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Illuminate\Support\Facades\DB;
 
 class CulturesImport implements 
 ToModel, 
@@ -59,6 +60,10 @@ SkipsOnFailure
     
   public function model(array $row)
   {
+    DB::table('import_statuses')
+      ->where('path', $this->file)
+      ->update(['status' => 'success']);
+
     return new Culture([
       'name' => $row['name'],
       'nitrogen' => $row['nitrogen'],
@@ -74,6 +79,9 @@ SkipsOnFailure
 
   public function onFailure(Failure ...$failures)
   {
+    DB::table('import_statuses')
+      ->where('path', $this->file)
+      ->update(['status' => 'failed']);
     $data = [];
     foreach ($failures as $failure) {
       $data[] = [
@@ -102,6 +110,6 @@ SkipsOnFailure
 
   public static function afterImport(AfterImport $event)
   {
-    dump('after import');
+    
   }
 }
