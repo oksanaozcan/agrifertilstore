@@ -16,7 +16,8 @@ class IndexController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request)
-    {      
+    {
+      $notifications = auth()->user()->unreadNotifications;
       $regions = Culture::all()->pluck('region')->toArray();
       $regions = array_unique($regions);
 
@@ -25,6 +26,6 @@ class IndexController extends Controller
 
       $cultures = Culture::filter($filter)->cursor();
          
-      return view('admin.cultures.index', compact('cultures', 'regions'));
+      return view('admin.cultures.index', compact('cultures', 'regions', 'notifications'));
     }
 }

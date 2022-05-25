@@ -15,4 +15,41 @@
       {{ session('status') }}
     </div>            
   @endif
+
+  @if(auth()->user())
+    @forelse($notifications as $notification)
+      @if ($notification->data['status'] === 'processing')
+        <div class="alert alert-warning" role="alert">
+          [{{ $notification->created_at }}] Import of file {{ $notification->data['path'] }} is ({{ $notification->data['status'] }}) status.
+          <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}">
+              Mark as read
+          </a>
+        </div>                
+      @endif
+      @if ($notification->data['status'] === 'failed')
+        <div class="alert alert-danger" role="alert">
+          [{{ $notification->created_at }}] Import of file {{ $notification->data['path'] }} is ({{ $notification->data['status'] }}) status.
+          <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}">
+              Mark as read
+          </a>
+        </div>                
+      @endif
+      @if ($notification->data['status'] === 'success')
+        <div class="alert alert-success" role="alert">
+          [{{ $notification->created_at }}] Import of file {{ $notification->data['path'] }} is ({{ $notification->data['status'] }}) status.
+          <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}">
+              Mark as read
+          </a>
+        </div>          
+      @endif
+      @if($loop->last)
+        <a href="#" id="mark-all">
+            Mark all as read
+        </a>
+      @endif
+    @empty
+      There are no new notifications
+    @endforelse
+  @endif
+
 </div>

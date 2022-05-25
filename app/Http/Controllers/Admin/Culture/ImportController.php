@@ -42,7 +42,7 @@ class ImportController extends Controller
       // Excel::import(new CulturesImport, $file);            
       $import = new CulturesImport($file, $userId, $importStatusId);
       $import->import($file);
-      return back()->withStatus('File imported to storage! We will send you notify, when it will be imported into database');
+      return back()->withStatus('Файл сохранен');
      
     }
 }
