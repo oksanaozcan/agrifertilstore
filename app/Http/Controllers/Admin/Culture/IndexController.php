@@ -17,7 +17,8 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-      $notifications = auth()->user()->unreadNotifications;
+      $notifications = auth()->user()->unreadNotifications;      
+
       $regions = Culture::all()->pluck('region')->toArray();
       $regions = array_unique($regions);
 

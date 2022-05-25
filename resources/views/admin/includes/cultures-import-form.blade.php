@@ -16,36 +16,25 @@
     </div>            
   @endif
 
-  @if(auth()->user())
+  @if(auth()->user()) 
+
     @forelse($notifications as $notification)
-      @if ($notification->data['status'] === 'processing')
-        <div class="alert alert-warning" role="alert">
-          [{{ $notification->created_at }}] Import of file {{ $notification->data['path'] }} is ({{ $notification->data['status'] }}) status.
-          <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}">
-              Mark as read
-          </a>
-        </div>                
-      @endif
-      @if ($notification->data['status'] === 'failed')
-        <div class="alert alert-danger" role="alert">
-          [{{ $notification->created_at }}] Import of file {{ $notification->data['path'] }} is ({{ $notification->data['status'] }}) status.
-          <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}">
-              Mark as read
-          </a>
-        </div>                
-      @endif
-      @if ($notification->data['status'] === 'success')
-        <div class="alert alert-success" role="alert">
-          [{{ $notification->created_at }}] Import of file {{ $notification->data['path'] }} is ({{ $notification->data['status'] }}) status.
-          <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}">
-              Mark as read
-          </a>
-        </div>          
-      @endif
+     
+      <div class="alert alert-info" role="alert">
+        [{{ $notification->created_at }}] Import of file {{ $notification->data['path'] }} is ({{ $notification->data['status'] }}) status.
+        <form action="{{ route('markNotification') }}" method="POST">
+          @csrf
+          <input type="hidden" value="{{ $notification->id }}" name="id"/>
+          <button type="submit" class="btn btn-dark">Mark as read</button>          
+        </form>        
+      </div>     
+     
       @if($loop->last)
-        <a href="#" id="mark-all">
-            Mark all as read
-        </a>
+        <form action="{{ route('markallasread') }}" method="POST">
+          @csrf        
+          <input type="hidden" value="all" name="all"/>
+          <button type="submit" class="btn btn-danger">Mark all as read</button>          
+        </form>               
       @endif
     @empty
       There are no new notifications

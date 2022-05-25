@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Culture\MarkNotificationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,6 +38,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('cultures')->group(function () {
+      Route::post('/mark-as-read', [MarkNotificationController::class, 'markAsRead'] )->name('markNotification');      
+      Route::post('/mark-all-as-read', [MarkNotificationController::class, 'markAllAsRead'] )->name('markallasread');      
       Route::get('/', App\Http\Controllers\Admin\Culture\IndexController::class)->name('admin.cultures.index');      
       Route::post('file-import', App\Http\Controllers\Admin\Culture\ImportController::class)->name('admin.cultures.file-import');
       Route::get('file-export', App\Http\Controllers\Admin\Culture\ExportController::class)->name('admin.cultures.file-export');
