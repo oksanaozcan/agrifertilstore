@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Fertilizer;
+use App\Models\ImportStatus;
 use App\Models\Tag;
 use App\Observers\FertilizerObserver;
+use App\Observers\ImportStatusObserver;
 use App\Observers\TagObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -34,6 +36,7 @@ class EventServiceProvider extends ServiceProvider
       parent::boot();
       Fertilizer::observe(FertilizerObserver::class);
       Tag::observe(TagObserver::class);
+      ImportStatus::observe(ImportStatusObserver::class);
     }
 
     /**

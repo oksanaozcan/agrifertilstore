@@ -36,11 +36,13 @@ SkipsOnFailure
 
   public $file;
   public $userId;
+  public $importStatusId;
 
-  public function __construct($file, $userId)
+  public function __construct($file, $userId, $importStatusId)
   {
     $this->file = $file;
     $this->userId = $userId;
+    $this->importStatusId = $importStatusId;
   }
 
   public function rules(): array
@@ -60,8 +62,7 @@ SkipsOnFailure
     
   public function model(array $row)
   {
-    DB::table('import_statuses')
-      ->where('path', $this->file)
+    ImportStatus::find($this->importStatusId)
       ->update(['status' => 'success']);
 
     return new Culture([
@@ -79,9 +80,9 @@ SkipsOnFailure
 
   public function onFailure(Failure ...$failures)
   {
-    DB::table('import_statuses')
-      ->where('path', $this->file)
-      ->update(['status' => 'failed']);
+    ImportStatus::find($this->importStatusId)
+    ->update(['status' => 'failed']);
+
     $data = [];
     foreach ($failures as $failure) {
       $data[] = [
