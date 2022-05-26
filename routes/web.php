@@ -82,6 +82,10 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/users', App\Http\Controllers\Admin\Deleted\IndexUserController::class)->name('admin.deleted.users.index');
     });
 
+    Route::prefix('status-import')->group(function () {      
+      Route::get('/cultures', App\Http\Controllers\Admin\StatusImport\IndexCultureController::class)->name('admin.statusimport.cultures.index');               
+    });
+
     Route::prefix('contacts')->group(function () {
       Route::get('/', App\Http\Controllers\Admin\Contact\IndexController::class)->name('admin.contacts.index');      
       Route::delete('/{contact}', App\Http\Controllers\Admin\Contact\DeleteController::class)->name('admin.contacts.delete');

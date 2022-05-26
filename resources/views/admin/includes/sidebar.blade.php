@@ -99,6 +99,12 @@
                 <p>Удаленные</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{ route('admin.statusimport.cultures.index') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Статистика импортов</p>
+              </a>
+            </li>
           </ul>
         </li>
 
