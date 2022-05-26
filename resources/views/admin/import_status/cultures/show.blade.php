@@ -25,14 +25,17 @@
 
               <h5 class="card-title">Ошибки импорта</h5>
               <ul class="list-group list-group-flush">
+                @if (isset($errorsArray))
                 @foreach ($errorsArray as $errorRow)
                 <li class="list-group-item"> Аттрибут {{ $errorRow[ "attribute"] }}, 
                   Строка {{ $errorRow[ "row"] }}, 
                   Ошибка: {{ $errorRow[ "errors"] }}
                 </li>                  
-                @endforeach                            
-              </ul>            
-
+                @endforeach       
+                @else
+                <li class="list-group-item">Ошибок нет</li>                                                        
+                @endif                
+              </ul>
             </div>           
           </div>          
         </div>

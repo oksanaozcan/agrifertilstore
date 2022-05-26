@@ -16,8 +16,7 @@ class ShowCultureController extends Controller
      */
     public function __invoke(ImportStatus $importstatus)
     {
-      $errorsArray = json_decode($importstatus->errors, true);
-      // dd($errorsArray[0][ "attribute"]);
+      $errorsArray = json_decode($importstatus->errors, true);      
       return view('admin.import_status.cultures.show', compact('importstatus', 'errorsArray'));
     }
 }
