@@ -21,11 +21,11 @@
     @forelse($notifications as $notification)
      
       <div class="alert alert-info" role="alert">
-        [{{ $notification->created_at }}] Import of file {{ $notification->data['path'] }} is ({{ $notification->data['status'] }}) status.
+        [{{ $notification->created_at }}] Статус импорта файла {{ $notification->data['path'] }}: ({{ $notification->data['status'] }}).
         <form action="{{ route('markNotification') }}" method="POST">
           @csrf
           <input type="hidden" value="{{ $notification->id }}" name="id"/>
-          <button type="submit" class="btn btn-dark">Mark as read</button>          
+          <button type="submit" class="btn btn-dark">Пометить как прочитанное</button>          
         </form>        
       </div>     
      
@@ -33,11 +33,11 @@
         <form action="{{ route('markallasread') }}" method="POST">
           @csrf        
           <input type="hidden" value="all" name="all"/>
-          <button type="submit" class="btn btn-danger">Mark all as read</button>          
+          <button type="submit" class="btn btn-danger">Пометить все как прочитанное</button>          
         </form>               
       @endif
     @empty
-      There are no new notifications
+      У вас нет новых уведомлений
     @endforelse
   @endif
 
