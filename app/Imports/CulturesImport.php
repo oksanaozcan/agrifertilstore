@@ -80,23 +80,19 @@ SkipsOnFailure
 
   public function onFailure(Failure ...$failures)
   {
-    ImportStatus::find($this->importStatusId)
-    ->update(['status' => 'failed']);
-
     $data = [];
     foreach ($failures as $failure) {
-      $data[] = [
-        'path' => $this->file, /////
-        'module' => 'Culture', 
-        'status' => 'failed',
-        'user_id' => $this->userId, ////
+      $data[] = [       
         'attribute' => $failure->attribute(),
-        'row' => $failure->row(),           
-        'values' => json_encode($failure->values()),
+        'row' => $failure->row(),                  
         'errors' => json_encode($failure->errors()),
       ];
     }
-    ImportStatus::insert($data);
+    ImportStatus::find($this->importStatusId)
+    ->update([
+      'status' => 'failed',
+      'errors' => $data
+    ]);
   }
 
   public function batchSize(): int

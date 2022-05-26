@@ -42,13 +42,7 @@
                   <td>{{ $item->user->name }}</td>                                    
                   <td>{{ $item->created_at }}</td>                                                                                   
                   <td class="d-flex">
-                    {{-- <a href={{ route('admin.cultures.show', $item->id) }} type="button" class="btn btn-info mr-1">Смотреть</a>
-                    <a href={{ route('admin.cultures.edit', $item->id) }} type="button" class="btn btn-secondary mr-1">Изменить</a>
-                    <form action="{{ route('admin.cultures.delete', $item->id) }}" method="POST">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-danger">Удалить</button>
-                    </form>                     --}}
+                    <a href={{ route('admin.statusimport.cultures.show', $item->id) }} type="button" class="btn btn-info mr-1">Смотреть</a>                            
                   </td>
                 </tr>                         
               @endforeach                   

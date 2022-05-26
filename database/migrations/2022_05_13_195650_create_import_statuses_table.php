@@ -19,10 +19,7 @@ return new class extends Migration
             $table->string('module');
             $table->enum('status', ['processing', 'success', 'failed']);
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->string('attribute')->nullable();
-            $table->unsignedInteger('row')->nullable();
-            $table->json('values')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');          
             $table->json('errors')->nullable();
             $table->timestamps();
         });

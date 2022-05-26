@@ -84,6 +84,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('status-import')->group(function () {      
       Route::get('/cultures', App\Http\Controllers\Admin\StatusImport\IndexCultureController::class)->name('admin.statusimport.cultures.index');               
+      Route::get('/cultures/{importstatus}', App\Http\Controllers\Admin\StatusImport\ShowCultureController::class)->name('admin.statusimport.cultures.show');               
     });
 
     Route::prefix('contacts')->group(function () {
