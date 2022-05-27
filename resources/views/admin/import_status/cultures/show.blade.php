@@ -25,11 +25,11 @@
 
               <h5 class="card-title">Ошибки импорта</h5>
               <ul class="list-group list-group-flush">
-                @if (isset($errorsArray))
-                @foreach ($errorsArray as $errorRow)
+                @if (isset($data))
+                @foreach ($data as $errorRow)
                 <li class="list-group-item"> Аттрибут {{ $errorRow[ "attribute"] }}, 
                   Строка {{ $errorRow[ "row"] }}, 
-                  Ошибка: {{ $errorRow[ "errors"] }}
+                  Ошибка: {{ $errorRow[ "errors"]  }}
                 </li>                  
                 @endforeach       
                 @else

@@ -27,7 +27,8 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Имя файла(путь)</th>
-                <th scope="col">Статус</th>               
+                <th scope="col">Статус</th>      
+                <th scope="col">Ошибки строк</th>      
                 <th scope="col">Пользователь</th>               
                 <th scope="col">Дата импота</th>               
                 <th scope="col">Действия</th>
@@ -39,6 +40,7 @@
                   <th>{{ $item->id }}</th>
                   <td>{{ $item->path }}</td>
                   <td>{{ $item->status }}</td>
+                  <td>{{ $item->errors == null ? "Ошибок нет" : "Обнаружены строки не прошедшие валидацию. Подробнее нажмите Смотреть" }}</td>
                   <td>{{ $item->user->name }}</td>                                    
                   <td>{{ $item->created_at }}</td>                                                                                   
                   <td class="d-flex">

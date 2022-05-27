@@ -37,12 +37,11 @@ class ImportController extends Controller
       $importStatusId = array_column($importStatusId, 'id');
       $importStatusId = $importStatusId[0];
 
-      $userId = auth()->user()->id;
-     
-      // Excel::import(new CulturesImport, $file);            
+      $userId = auth()->user()->id;     
+      
       $import = new CulturesImport($file, $userId, $importStatusId);
       $import->import($file);
-      return back()->withStatus('Файл сохранен');
+      return back()->withStatus('Данные импортируются');
      
     }
 }

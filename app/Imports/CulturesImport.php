@@ -13,12 +13,10 @@ use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Events\AfterImport;
 use Maatwebsite\Excel\Validators\Failure;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
-use Illuminate\Support\Facades\DB;
 
 class CulturesImport implements 
 ToModel, 
@@ -48,7 +46,7 @@ SkipsOnFailure
   public function rules(): array
   {
     return [
-      'name' => 'unique:cultures,name',
+      'name' => 'required|unique:cultures,name',
       'nitrogen' => 'required|numeric',
       'phosphorus' => 'required|numeric',
       'potassium' => 'required|numeric',
@@ -58,7 +56,7 @@ SkipsOnFailure
       'description' => 'required|string',
       'purpose' => 'required|string',
     ];
-  }
+  } 
     
   public function model(array $row)
   {
@@ -77,6 +75,15 @@ SkipsOnFailure
       'purpose' => $row['purpose']
     ]);        
   }
+
+  public function customValidationMessages()
+  {
+    return [
+        'name.required' => 'Поле name не заполнено',
+        'name.unique:cultures' => 'Наименование товара должно быть уникальным',
+        'nitrogen.required' => 'Поле nitrogen не заполнено'
+    ];
+  }  
 
   public function onFailure(Failure ...$failures)
   {
@@ -103,10 +110,5 @@ SkipsOnFailure
   public function chunkSize(): int
   {
       return 1000;
-  }
-
-  public static function afterImport(AfterImport $event)
-  {
-    
-  }
+  } 
 }
