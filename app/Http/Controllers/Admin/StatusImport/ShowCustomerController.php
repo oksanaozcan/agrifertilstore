@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ImportStatus;
 use Illuminate\Http\Request;
 
-class ShowCultureController extends Controller
+class ShowCustomerController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -16,9 +16,10 @@ class ShowCultureController extends Controller
      */
     public function __invoke(ImportStatus $importstatus)
     {
-      $errorsArray = json_decode($importstatus->errors, true);    
-      $data = [];
+      $errorsArray = json_decode($importstatus->errors, true);        
       
+      $data = [];
+
       if ($errorsArray) {
         foreach ($errorsArray as $erArray) {       
 
@@ -29,8 +30,8 @@ class ShowCultureController extends Controller
          
           $data[] = $erArray;        
         }
-      } 
-     
-      return view('admin.import_status.cultures.show', compact('importstatus', 'data'));
+      }
+       
+      return view('admin.import_status.customers.show', compact('importstatus', 'data'));
     }
 }

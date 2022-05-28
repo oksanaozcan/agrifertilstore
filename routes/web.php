@@ -53,7 +53,11 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('customers')->group(function () {
+      Route::post('/mark-as-read', [MarkNotificationController::class, 'markAsRead'] )->name('markNotificationCustomers');      
+      Route::post('/mark-all-as-read', [MarkNotificationController::class, 'markAllAsRead'] )->name('markallasreadcustomers');
       Route::get('/', App\Http\Controllers\Admin\Customer\IndexController::class)->name('admin.customers.index');
+      Route::post('file-import', App\Http\Controllers\Admin\Customer\ImportController::class)->name('admin.customers.file-import');
+      Route::get('file-export', App\Http\Controllers\Admin\Customer\ExportController::class)->name('admin.customers.file-export');
       Route::get('/filter', App\Http\Controllers\Admin\Customer\FilterController::class)->name('admin.customers.filter');
       Route::get('/create', App\Http\Controllers\Admin\Customer\CreateController::class)->name('admin.customers.create');
       Route::post('/', App\Http\Controllers\Admin\Customer\StoreController::class)->name('admin.customers.store');
@@ -84,7 +88,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('status-import')->group(function () {      
       Route::get('/cultures', App\Http\Controllers\Admin\StatusImport\IndexCultureController::class)->name('admin.statusimport.cultures.index');               
-      Route::get('/cultures/{importstatus}', App\Http\Controllers\Admin\StatusImport\ShowCultureController::class)->name('admin.statusimport.cultures.show');               
+      Route::get('/cultures/{importstatus}', App\Http\Controllers\Admin\StatusImport\ShowCultureController::class)->name('admin.statusimport.cultures.show');  
+      Route::get('/customers', App\Http\Controllers\Admin\StatusImport\IndexCustomerController::class)->name('admin.statusimport.customers.index');               
+      Route::get('/customers/{importstatus}', App\Http\Controllers\Admin\StatusImport\ShowCustomerController::class)->name('admin.statusimport.customers.show');               
     });
 
     Route::prefix('contacts')->group(function () {

@@ -14,6 +14,9 @@
           <a href={{ route('admin.customers.create') }} type="button" class="btn btn-primary">Добавить</a>
         </div>
       </div>
+
+      @include('admin.includes.customers-import-form')
+
     </div>
   </div>  
 

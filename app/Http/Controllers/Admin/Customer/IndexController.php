@@ -17,6 +17,8 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
+      $notifications = auth()->user()->unreadNotifications;  
+
       $regions = Customer::all()->pluck('region')->toArray();
       $regions = array_unique($regions);
 
@@ -25,6 +27,6 @@ class IndexController extends Controller
 
       $customers = Customer::filter($filter)->cursor();
          
-      return view('admin.customers.index', compact('customers', 'regions'));
+      return view('admin.customers.index', compact('customers', 'regions', 'notifications'));
     }
 }
