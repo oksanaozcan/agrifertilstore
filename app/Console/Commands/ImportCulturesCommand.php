@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Imports\CulturesImport;
+use App\Imports\CulturesConsoleImport;
 use Illuminate\Console\Command;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -30,7 +30,7 @@ class ImportCulturesCommand extends Command
     public function handle()
     {
       ini_set('memory_limit', '-1');
-      Excel::import(new CulturesImport, public_path('exel/indexes.xlsx'));      
+      Excel::import(new CulturesConsoleImport, public_path('exel/cultures.xlsx'));      
 
       $this->info('The command was successful!');
     }
