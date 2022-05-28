@@ -80,8 +80,23 @@ SkipsOnFailure
   {
     return [
         'name.required' => 'Поле name не заполнено',
-        'name.unique:cultures' => 'Наименование товара должно быть уникальным',
-        'nitrogen.required' => 'Поле nitrogen не заполнено'
+        'name.unique' => 'Наименование товара должно быть уникальным',
+        'nitrogen.required' => 'Поле nitrogen не заполнено',
+        'nitrogen.numeric' => 'Поле nitrogen должно быть числом',
+        'phosphorus.required' => 'Поле phosphorus не заполнено',
+        'phosphorus.numeric' => 'Поле phosphorus должно быть числом',
+        'potassium.required' => 'Поле potassium не заполнено',
+        'potassium.numeric' => 'Поле potassium должно быть числом',
+        'fertilizer_id.required' => 'Поле fertilizer_id не заполнено',
+        'fertilizer_id.integer' => 'Поле fertilizer_id должно быть целым числом',
+        'region.required' => 'Поле region не заполнено',
+        'region.string' => 'Поле region должно быть строкой',
+        'price.required' => 'Поле price не заполнено',
+        'price.numeric' => 'Поле price должно быть числом',
+        'description.required' => 'Поле description не заполнено',
+        'description.string' => 'Поле description должно быть строкой',
+        'purpose.required' => 'Поле purpose не заполнено',
+        'purpose.string' => 'Поле purpose должно быть строкой',
     ];
   }  
 
