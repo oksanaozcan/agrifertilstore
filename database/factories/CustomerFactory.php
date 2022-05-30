@@ -18,7 +18,7 @@ class CustomerFactory extends Factory
     {
         return [
           'name' => $this->faker->name(),
-          'contract_date' => $this->faker->dateTimeBetween('-200 days','now'),
+          'contract_date' => $this->faker->dateTimeBetween('-200 days','now'),          
           'cost' => $this->faker->randomFloat(2,100,900),
           'region' => $this->faker->country()
         ];
