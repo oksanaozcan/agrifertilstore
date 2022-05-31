@@ -37,6 +37,10 @@
         <div class="col-sm-6 mt-2">          
         </div>
       </div>
+      
+      <div class="row mb-2">
+        <a href="{{ route('admin.customers.word-export', $customer->id) }}" class="btn btn-warning">Экспорт справки</a>
+      </div>
     </div>
   </div>  
 

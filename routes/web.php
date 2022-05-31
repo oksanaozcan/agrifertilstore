@@ -61,7 +61,8 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/filter', App\Http\Controllers\Admin\Customer\FilterController::class)->name('admin.customers.filter');
       Route::get('/create', App\Http\Controllers\Admin\Customer\CreateController::class)->name('admin.customers.create');
       Route::post('/', App\Http\Controllers\Admin\Customer\StoreController::class)->name('admin.customers.store');
-      Route::get('/{customer}', App\Http\Controllers\Admin\Customer\ShowController::class)->name('admin.customers.show');
+      Route::get('/{customer}', App\Http\Controllers\Admin\Customer\ShowController::class)->name('admin.customers.show');      
+      Route::get('/word-export/{customer}', App\Http\Controllers\Admin\Customer\ExportWordController::class)->name('admin.customers.word-export');      
       Route::get('/{customer}/edit', App\Http\Controllers\Admin\Customer\EditController::class)->name('admin.customers.edit');
       Route::patch('/{customer}', App\Http\Controllers\Admin\Customer\UpdateController::class)->name('admin.customers.update');
       Route::delete('/{customer}', App\Http\Controllers\Admin\Customer\DeleteController::class)->name('admin.customers.delete');
