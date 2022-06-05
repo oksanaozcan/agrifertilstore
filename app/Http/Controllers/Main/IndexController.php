@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Filters\CultureFilter;
 use App\Http\Requests\Main\IndexRequest;
 use App\Models\Culture;
-use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -26,7 +25,7 @@ class IndexController extends Controller
 
       $filter = app()->make(CultureFilter::class, ['queryParams' => array_filter($data)]);
 
-      $cultures = Culture::filter($filter)->paginate(8);  
+      $cultures = Culture::filter($filter)->paginate(8);      
       
       return view('main.index', compact('cultures', 'regions'));
     }
