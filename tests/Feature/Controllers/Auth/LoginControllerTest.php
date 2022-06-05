@@ -12,6 +12,6 @@ class LoginControllerTest extends TestCase
   {
     $response = $this->get('/login');
     $response->assertStatus(200);
-  }
+  }  
 
 }
