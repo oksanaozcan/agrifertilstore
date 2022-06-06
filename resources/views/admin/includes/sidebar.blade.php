@@ -198,6 +198,19 @@
             <p>Заявки</p>
           </a>
         </li>
+
+        <li class="nav-item">          
+          <a class="nav-link" href="{{ route('logout') }}"
+              onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+            {{-- <i class="far fa-envelope nav-icon"></i> --}}
+            <i class="fas fa-door-open nav-icon"></i>
+              {{ __('Logout') }}
+          </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+          </form>        
+        </li>
        
       </ul>
     </nav>
