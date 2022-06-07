@@ -46,7 +46,8 @@ class AuthTest extends DuskTestCase
           ->type('password', 'someincorrectpass')
           ->press('Login')
           ->assertPathIs('/login')
-          ->assertSee('These credentials do not match our records.');
-        });
+          ->assertSee('These credentials do not match our records.')
+          ->assertElementHasClass('input[name="email"]', 'is-invalid');         
+        });   
     } 
 }
