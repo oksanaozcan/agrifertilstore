@@ -5,10 +5,19 @@ namespace Tests\Browser;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
-use Tests\DuskTestCase;
+use Tests\QAPDuskTestCase;
 
-class AuthTest extends DuskTestCase
+class AuthTest extends QAPDuskTestCase
 {
+  protected $user;
+
+  public function setUp(): void
+  {
+    parent::setUp(); 
+    
+    $this->user = User::find(1);       
+  }
+
   /** @test */
     public function it_asserts_that_user_can_login()
     {
@@ -27,13 +36,14 @@ class AuthTest extends DuskTestCase
     /** @test */
     public function it_asserts_that_user_can_logout()
     {
-      $this->browse(function (Browser $browser) {
-        $browser->loginAs('admin@gmail.com')
+      $user = $this->user;
+      $this->browse(function (Browser $browser) use($user) {
+        $browser->loginAs($user)
           ->visit('/admin')
           ->assertSee('Logout')
           ->clickLink('Logout')
           ->assertGuest();         
-        });
+      });
     }    
 
     /** @test */

@@ -15,6 +15,6 @@ class CultureSeeder extends Seeder
      */
     public function run()
     {
-      Culture::factory(1)->create();
+      Culture::factory(10)->create();
     }
 }
