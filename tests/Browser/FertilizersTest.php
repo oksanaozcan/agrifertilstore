@@ -4,11 +4,18 @@ namespace Tests\Browser;
 
 use App\Models\Fertilizer;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
+use Tests\Browser\Pages\Admin\Fertilizers\CreatePage;
+use Tests\Browser\Pages\Admin\Fertilizers\EditPage;
+use Tests\Browser\Pages\Admin\Fertilizers\IndexPage;
+use Tests\Browser\Pages\Admin\Fertilizers\ShowPage;
 use Tests\QAPDuskTestCase;
 
 class FertilizersTest extends QAPDuskTestCase
 {
+  use WithFaker;
+
   /** @test */
   public function it_asserts_that_user_can_read_all_fertilizers()
   {
@@ -16,7 +23,7 @@ class FertilizersTest extends QAPDuskTestCase
 
     $this->browse(function(Browser $browser) use($fertilizers) {
       $browser->loginAs('admin@gmail.com')
-        ->visit('/admin/fertilizers')
+        ->visit(new IndexPage)
         ->assertSee($fertilizers->random()->name);
     });
   }   
@@ -28,7 +35,7 @@ class FertilizersTest extends QAPDuskTestCase
 
     $this->browse(function(Browser $browser) use($fertilizer) {
       $browser->loginAs('admin@gmail.com')
-        ->visit('/admin/fertilizers/'.$fertilizer->id)
+        ->visit(new ShowPage($fertilizer->id))
         ->assertSee($fertilizer->name);
     });
   }   
@@ -40,13 +47,10 @@ class FertilizersTest extends QAPDuskTestCase
 
     $this->browse(function(Browser $browser) use ($dumpData){
       $browser->loginAs('admin@gmail.com')
-        ->visit('/admin/fertilizers')
-        ->clickLink('Добавить вид')
-        ->assertSee('Форма для добавления вида')
-        ->assertPathIs('/admin/fertilizers/create')
+        ->visit(new CreatePage)              
         ->type('name', $dumpData)
         ->press('Добавить')
-        ->assertPathIs('/admin/fertilizers')
+        ->on(new IndexPage)
         ->assertSee($dumpData);
     });
     $this->assertDatabaseHas('fertilizers', ['name' => $dumpData]);
@@ -60,13 +64,10 @@ class FertilizersTest extends QAPDuskTestCase
 
     $this->browse(function(Browser $browser) use ($fertilizer, $dumpData){
       $browser->loginAs('admin@gmail.com')
-        ->visit('/admin/fertilizers/'.$fertilizer->id)
-        ->clickLink('Изменить')
-        ->assertSee('Форма для редактирования '.$fertilizer->name)
-        ->assertPathIs('/admin/fertilizers/'.$fertilizer->id.'/edit')
+        ->visit(new EditPage($fertilizer->id))               
         ->type('name', $dumpData)
         ->press('Обновить')
-        ->assertPathIs('/admin/fertilizers/'.$fertilizer->id)
+        ->on(new ShowPage($fertilizer->id))
         ->assertSee($dumpData);
     });
     $this->assertDatabaseHas('fertilizers', ['name' => $dumpData]);
@@ -75,11 +76,11 @@ class FertilizersTest extends QAPDuskTestCase
   /** @test */
   public function it_asserts_that_user_can_delete_a_fertilizer()
   {
-    $fertilizer = Fertilizer::find(1);
+    $fertilizer = Fertilizer::all()->first();
 
     $this->browse(function(Browser $browser) use($fertilizer) {
       $browser->loginAs('admin@gmail.com')
-        ->visit('/admin/fertilizers')
+        ->visit(new IndexPage)
         ->click('#DataTables_Table_0 > tbody > tr.odd > td.d-flex > form > button')        
         ->assertPathIs('/admin/fertilizers')
         ->assertDontSee($fertilizer->name);
