@@ -19,12 +19,12 @@ class FertilizersTest extends QAPDuskTestCase
   /** @test */
   public function it_asserts_that_user_can_read_all_fertilizers()
   {
-    $fertilizers = Fertilizer::factory(3)->create();
+    $fertilizers = Fertilizer::all();
 
     $this->browse(function(Browser $browser) use($fertilizers) {
       $browser->loginAs('admin@gmail.com')
         ->visit(new IndexPage)
-        ->assertSee($fertilizers->random()->name);
+        ->assertSeeAllFertilizers($fertilizers);
     });
   }   
 
@@ -36,7 +36,7 @@ class FertilizersTest extends QAPDuskTestCase
     $this->browse(function(Browser $browser) use($fertilizer) {
       $browser->loginAs('admin@gmail.com')
         ->visit(new ShowPage($fertilizer->id))
-        ->assertSee($fertilizer->name);
+        ->assertSeeDetails($fertilizer);
     });
   }   
 
