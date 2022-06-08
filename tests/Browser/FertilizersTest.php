@@ -136,4 +136,19 @@ class FertilizersTest extends QAPDuskTestCase
     });    
     $this->assertSoftDeleted('fertilizers', ['name' => $fertilizer->name]);
   }   
+
+  /** @test */
+  public function it_asserts_that_user_can_press_an_delete_button_from_show_page()
+  {
+    $fertilizer = Fertilizer::all()->random();
+
+    $this->browse(function(Browser $browser) use($fertilizer) {
+      $browser->loginAs('admin@gmail.com')
+        ->visit(new ShowPage($fertilizer->id))
+        ->pressDeleteButton($fertilizer->id)
+        ->on(new IndexPage)
+        ->assertDontSee($fertilizer->name);       
+    });
+  }   
+
 }

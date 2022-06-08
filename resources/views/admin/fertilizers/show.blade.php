@@ -30,7 +30,7 @@
               <form action="{{ route('admin.fertilizers.delete', $fertilizer->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="text-danger card-link border-0 bg-transparent">Удалить</button>
+                <button dusk="deleteButtonFromSingleFertilizer{{ $fertilizer->id }}" type="submit" class="text-danger card-link border-0 bg-transparent">Удалить</button>
               </form>        
             </div>
           </div>          

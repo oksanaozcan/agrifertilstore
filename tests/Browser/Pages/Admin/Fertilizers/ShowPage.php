@@ -40,4 +40,9 @@ class ShowPage extends Page
     {
       $browser->click('@editButtonFromSingleFertilizer'.$id);      
     }
+
+    public function pressDeleteButton(Browser $browser, $id)
+    {
+      $browser->click('@deleteButtonFromSingleFertilizer'.$id);      
+    }
 }
