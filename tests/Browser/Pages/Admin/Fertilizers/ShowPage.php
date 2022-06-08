@@ -35,4 +35,9 @@ class ShowPage extends Page
     {
       $browser->assertSee($fertilizer->name);
     }
+
+    public function pressEditButton(Browser $browser, $id)
+    {
+      $browser->click('@editButtonFromSingleFertilizer'.$id);      
+    }
 }

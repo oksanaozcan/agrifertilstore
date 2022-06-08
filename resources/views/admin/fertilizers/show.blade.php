@@ -26,7 +26,7 @@
               <li class="list-group-item">{{ $fertilizer->updated_at }}</li>              
             </ul>
             <div class="card-body d-flex">
-              <a href={{ route('admin.fertilizers.edit', $fertilizer->id) }} class="card-link mr-2">Изменить</a>
+              <a dusk="editButtonFromSingleFertilizer{{ $fertilizer->id }}" href={{ route('admin.fertilizers.edit', $fertilizer->id) }} class="card-link mr-2">Изменить</a>
               <form action="{{ route('admin.fertilizers.delete', $fertilizer->id) }}" method="POST">
                 @csrf
                 @method('DELETE')

@@ -30,4 +30,24 @@ class IndexPage extends Page
         $browser->assertSee($fertilizer->name);
       }
     }
+
+    public function pressViewButton (Browser $browser, $id)
+    {
+      $browser->click('@viewButton'.$id);
+    }
+
+    public function pressEditButton (Browser $browser, $id)
+    {
+      $browser->click('@editButton'.$id);
+    }
+
+    public function pressCreateButton (Browser $browser)
+    {
+      $browser->click('@addFertilizerButton');
+    }
+
+    public function pressDeleteButton (Browser $browser, $id)
+    {
+      $browser->click('@deleteFertilizerButton'.$id);
+    }
 }

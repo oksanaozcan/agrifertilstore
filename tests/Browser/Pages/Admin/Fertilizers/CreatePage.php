@@ -24,4 +24,10 @@ class CreatePage extends Page
             '@element' => '#selector',
         ];
     }
+
+    public function fillAndSubmitForm(Browser $browser, $data)
+    {
+      $browser->type('name', $data)
+        ->press('Добавить');
+    }
 }

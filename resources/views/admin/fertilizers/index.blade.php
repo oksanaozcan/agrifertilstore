@@ -11,7 +11,7 @@
           <h1 class="m-0">Удобрения (виды)</h1>
         </div>
         <div class="col-sm-6 d-flex flex-row-reverse">
-          <a href={{ route('admin.fertilizers.create') }} type="button" class="btn btn-primary">Добавить вид</a>
+          <a dusk="addFertilizerButton" href={{ route('admin.fertilizers.create') }} type="button" class="btn btn-primary">Добавить вид</a>
         </div>
       </div>
     </div>
@@ -40,12 +40,12 @@
                   <td>{{ $item->created_at }}</td>
                   <td>{{ $item->cultures_count }}</td>
                   <td class="d-flex">
-                    <a href={{ route('admin.fertilizers.show', $item->id) }} type="button" class="btn btn-info mr-1">Смотреть</a>
-                    <a href={{ route('admin.fertilizers.edit', $item->id) }} type="button" class="btn btn-secondary mr-1">Изменить</a>
+                    <a dusk="viewButton{{ $item->id }}" href={{ route('admin.fertilizers.show', $item->id) }} type="button" class="btn btn-info mr-1">Смотреть</a>
+                    <a dusk="editButton{{ $item->id }}" href={{ route('admin.fertilizers.edit', $item->id) }} type="button" class="btn btn-secondary mr-1">Изменить</a>
                     <form action="{{ route('admin.fertilizers.delete', $item->id) }}" method="POST">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" class="btn btn-danger">Удалить</button>
+                      <button dusk="deleteFertilizerButton{{ $item->id }}" type="submit" class="btn btn-danger">Удалить</button>
                     </form>                    
                   </td>
                 </tr>                         

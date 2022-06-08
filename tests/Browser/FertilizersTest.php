@@ -29,6 +29,57 @@ class FertilizersTest extends QAPDuskTestCase
   }   
 
   /** @test */
+  public function it_asserts_that_user_can_press_a_view_button()
+  {
+    $fertilizer = Fertilizer::factory()->create();
+
+    $this->browse(function(Browser $browser) use($fertilizer) {
+      $browser->loginAs('admin@gmail.com')
+        ->visit(new IndexPage)
+        ->pressViewButton($fertilizer->id)
+        ->on(new ShowPage($fertilizer->id))
+        ->assertSeeDetails($fertilizer);
+    });
+  }   
+
+  /** @test */
+  public function it_asserts_that_user_can_press_an_edit_button_from_show_page()
+  {
+    $fertilizer = Fertilizer::all()->random();
+
+    $this->browse(function(Browser $browser) use($fertilizer) {
+      $browser->loginAs('admin@gmail.com')
+        ->visit(new ShowPage($fertilizer->id))
+        ->pressEditButton($fertilizer->id)
+        ->on(new EditPage($fertilizer->id));       
+    });
+  }   
+
+  /** @test */
+  public function it_asserts_that_user_can_press_an_edit_button()
+  {
+    $fertilizer = Fertilizer::factory()->create();
+
+    $this->browse(function(Browser $browser) use($fertilizer) {
+      $browser->loginAs('admin@gmail.com')
+        ->visit(new IndexPage)
+        ->pressEditButton($fertilizer->id)
+        ->on(new EditPage($fertilizer->id));        
+    });
+  }   
+
+  /** @test */
+  public function it_asserts_that_user_can_press_an_create_button()
+  {
+      $this->browse(function(Browser $browser) {
+      $browser->loginAs('admin@gmail.com')
+        ->visit(new IndexPage)
+        ->pressCreateButton()
+        ->on(new CreatePage);        
+    });
+  }   
+
+  /** @test */
   public function it_asserts_that_user_can_read_a_single_fertilizer()
   {
     $fertilizer = Fertilizer::factory()->create();
@@ -47,9 +98,8 @@ class FertilizersTest extends QAPDuskTestCase
 
     $this->browse(function(Browser $browser) use ($dumpData){
       $browser->loginAs('admin@gmail.com')
-        ->visit(new CreatePage)              
-        ->type('name', $dumpData)
-        ->press('Добавить')
+        ->visit(new CreatePage)      
+        ->fillAndSubmitForm($dumpData)      
         ->on(new IndexPage)
         ->assertSee($dumpData);
     });
@@ -64,9 +114,8 @@ class FertilizersTest extends QAPDuskTestCase
 
     $this->browse(function(Browser $browser) use ($fertilizer, $dumpData){
       $browser->loginAs('admin@gmail.com')
-        ->visit(new EditPage($fertilizer->id))               
-        ->type('name', $dumpData)
-        ->press('Обновить')
+        ->visit(new EditPage($fertilizer->id)) 
+        ->fillAndSubmitForm($dumpData)        
         ->on(new ShowPage($fertilizer->id))
         ->assertSee($dumpData);
     });
@@ -76,13 +125,13 @@ class FertilizersTest extends QAPDuskTestCase
   /** @test */
   public function it_asserts_that_user_can_delete_a_fertilizer()
   {
-    $fertilizer = Fertilizer::all()->first();
+    $fertilizer = Fertilizer::all()->random();
 
     $this->browse(function(Browser $browser) use($fertilizer) {
       $browser->loginAs('admin@gmail.com')
         ->visit(new IndexPage)
-        ->click('#DataTables_Table_0 > tbody > tr.odd > td.d-flex > form > button')        
-        ->assertPathIs('/admin/fertilizers')
+        ->pressDeleteButton($fertilizer->id)       
+        ->on(new IndexPage)        
         ->assertDontSee($fertilizer->name);
     });    
     $this->assertSoftDeleted('fertilizers', ['name' => $fertilizer->name]);
