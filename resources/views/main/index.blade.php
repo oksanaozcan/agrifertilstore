@@ -12,7 +12,7 @@
           <div class="card mb-2">
             <div class="card-body">
               <div class="bg-success">
-                <h5 class="card-title text-white text-center p-2">{{ $item->name }}</h5>
+                <h5 class="card-title culture-title text-white text-center p-2">{{ $item->name }}</h5>
               </div>              
               <h6 class="card-subtitle mb-2 text-muted">{{ $item->purpose }}</h6>
               <div class="d-flex">
