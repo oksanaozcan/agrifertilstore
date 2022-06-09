@@ -12,7 +12,7 @@ use Tests\QAPDuskTestCase;
 
 class CulturesTest extends QAPDuskTestCase
 {
-  use WithFaker;
+  use WithFaker; 
 
   protected function getFakeCultureData()
   {

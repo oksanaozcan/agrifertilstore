@@ -14,7 +14,7 @@ use Tests\QAPDuskTestCase;
 
 class FertilizersTest extends QAPDuskTestCase
 {
-  use WithFaker;
+  use WithFaker;  
 
   /** @test */
   public function it_asserts_that_user_can_read_all_fertilizers()
